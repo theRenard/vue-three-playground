@@ -9,8 +9,6 @@ import {
 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
-const gui = new dat.GUI();
-
 export default class CreateThreeEnv {
   canvas: HTMLCanvasElement | null = null;
   renderer!: WebGLRenderer;
@@ -18,12 +16,12 @@ export default class CreateThreeEnv {
   camera!: PerspectiveCamera;
   controls!: OrbitControls;
   clock = new Clock();
-  gui: dat.GUI = gui
+  gui: dat.GUI = new dat.GUI();
   elapsedTime = 0;
   width = window.innerWidth;
   height = window.innerHeight;
 
-  constructor(canvasEl: HTMLCanvasElement) {
+  init(canvasEl: HTMLCanvasElement): void {
     this.canvas = canvasEl;
     this.setRenderer();
     this.setScene();
@@ -31,10 +29,10 @@ export default class CreateThreeEnv {
     this.setControls();
     this.resize = this.resize.bind(this);
     this.addResizeListener();
-    this.init();
     this.tick = this.tick.bind(this);
     this.tick();
   }
+
   setRenderer(): void {
     if (this.canvas) {
       this.renderer = new WebGLRenderer({
@@ -59,11 +57,6 @@ export default class CreateThreeEnv {
       this.controls = new OrbitControls(this.camera, this.canvas);
       this.controls.enableDamping = true;
     }
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  init(): void {
-    (() => null)(); // noop
   }
 
   resize(): void {
@@ -108,7 +101,7 @@ export default class CreateThreeEnv {
     window.requestAnimationFrame(this.tick);
   }
 
-  // destroy(): void {
-  //   console.log('todo');
-  // }
+  destroy(): void {
+    this.gui.destroy();
+  }
 }

@@ -3,15 +3,17 @@ import floor from './floor';
 import fog from './fog';
 import house from './house/house';
 import { ghost1, ghost2, ghost3 } from './ghosts';
-import { ambientLight, moonLight, doorLight } from './lights';
+import createLights from './lights';
 
 export default class HauntedHouse extends CreateThreeEnv {
-  init(): void {
+  init(canvasEl: HTMLCanvasElement): void {
+    super.init(canvasEl);
     this.scene.add(floor);
     this.scene.add(house);
     this.scene.add(ghost1);
     this.scene.add(ghost2);
     this.scene.add(ghost3);
+    const { ambientLight, moonLight, doorLight } = createLights(this.gui);
     this.scene.add(moonLight);
     this.scene.add(ambientLight);
     this.scene.add(doorLight);
