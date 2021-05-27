@@ -29,6 +29,8 @@ export default class AirplaneSketch extends Sketch {
   }
 
   update(elapsedTime: number): void {
-    this.sea.material.uniforms.uTime.value = elapsedTime;
+    if (this.sea) {
+      this.sea.material.uniforms.uTime.value = elapsedTime;
+    }
   }
 }

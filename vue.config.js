@@ -1,6 +1,6 @@
 module.exports = {
+  publicPath: './',
   configureWebpack: {
-    publicPath: './',
     module: {
       rules: [
         // Shaders
