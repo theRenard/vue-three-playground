@@ -18,6 +18,7 @@ export default class Sketch {
   camera!: PerspectiveCamera | OrthographicCamera;
   controls!: OrbitControls;
   clock = new Clock();
+  animationReq: number;
   gui: dat.GUI = new dat.GUI();
   elapsedTime = 0;
   width = window.innerWidth;
@@ -127,11 +128,12 @@ export default class Sketch {
     this.renderer.render(this.scene, this.camera);
 
     // Call tick again on the next frame
-    window.requestAnimationFrame(this.tick);
+    this.animationReq = window.requestAnimationFrame(this.tick);
   }
 
   destroy(): void {
     this.gui.destroy();
+    window.cancelAnimationFrame(this.animationReq);
     // Remember to remove
     // meshes from scene
     // geometries

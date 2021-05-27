@@ -13,6 +13,7 @@ import { gsap } from 'gsap';
 export default class AirplaneSketch extends Sketch {
   sea: any;
   airplane: any;
+  airplaneAnimation: gsap.core.Tween;
   waterGeometry: PlaneGeometry;
   waterMaterial: ShaderMaterial;
   jetColorTexture: Texture;
@@ -83,22 +84,16 @@ export default class AirplaneSketch extends Sketch {
 
         this.scene.add(this.airplane);
 
-        const anim = () => {
-          gsap.to([this.airplane.position, this.airplane.rotation], {
-            duration: Math.floor(Math.random() * 3) + 2,
-            x: (Math.random() - 0.5) * 0.05,
-            y: (Math.random() - 0.5) * 0.05,
-            z: (Math.random() - 0.5) * 0.05,
-            // z: 2,
-            // yoyo: true,
-            ease: 'power1.inOut',
-            onComplete: () => {
-              anim();
-            },
-          });
-        };
+        this.airplaneAnimation = gsap.to([this.airplane.position, this.airplane.rotation], {
+          duration: 'random(1, 5)',
+          x: 'random(-0.3, 0.3)',
+          y: 'random(-0.1, 0.2)',
+          z: 'random(-0.05, 0.05)',
+          ease: 'power1.inOut',
+          repeatRefresh: true,
+          repeat: -1,
+        });
 
-        anim();
       },
       (xhr) => {
         console.log(`${(xhr.loaded / xhr.total) * 100}% loaded`);
@@ -113,6 +108,7 @@ export default class AirplaneSketch extends Sketch {
     this.scene.remove(this.airplane);
     this.jetColorTexture.dispose();
     this.jetNormalTexture.dispose();
+    this.airplaneAnimation.kill();
 
   }
 
