@@ -1,11 +1,11 @@
-import CreateThreeEnv from '@/CreateThreeEnv';
+import Sketch from '@/Sketch';
 import floor from './floor';
 import fog from './fog';
 import house from './house/house';
 import { ghost1, ghost2, ghost3 } from './ghosts';
 import createLights from './lights';
 
-export default class HauntedHouse extends CreateThreeEnv {
+export default class HauntedHouse extends Sketch {
   init(canvasEl: HTMLCanvasElement): void {
     super.init(canvasEl);
     this.scene.add(floor);

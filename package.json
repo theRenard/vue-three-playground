@@ -11,6 +11,7 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "dat.gui": "^0.7.7",
+    "gsap": "^3.6.1",
     "three": "^0.128.0",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
@@ -20,8 +21,8 @@
   },
   "devDependencies": {
     "@types/dat.gui": "^0.7.6",
-    "@types/three": "^0.128.0",
     "@types/jest": "^24.0.19",
+    "@types/three": "^0.128.0",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -39,6 +40,7 @@
     "eslint-plugin-vue": "^6.2.2",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
+    "ts-shader-loader": "^1.0.6",
     "typescript": "~4.1.5",
     "vue-template-compiler": "^2.6.11"
   }

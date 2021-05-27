@@ -6,23 +6,27 @@ import {
   WebGLRenderer,
   PCFSoftShadowMap,
   Clock,
+  OrthographicCamera,
 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
-export default class CreateThreeEnv {
+export default class Sketch {
   canvas: HTMLCanvasElement | null = null;
   renderer!: WebGLRenderer;
   scene!: Scene;
-  camera!: PerspectiveCamera;
+  camera!: PerspectiveCamera | OrthographicCamera;
   controls!: OrbitControls;
   clock = new Clock();
   gui: dat.GUI = new dat.GUI();
   elapsedTime = 0;
   width = window.innerWidth;
   height = window.innerHeight;
+  cameraType!: 'perspective' | 'orthographic';
+  debug = false;
 
-  init(canvasEl: HTMLCanvasElement): void {
+  init(canvasEl: HTMLCanvasElement, cameraType: 'perspective' | 'orthographic' = 'perspective'): void {
     this.canvas = canvasEl;
+    this.cameraType = cameraType;
     this.setRenderer();
     this.setScene();
     this.setCamera();
@@ -31,6 +35,15 @@ export default class CreateThreeEnv {
     this.addResizeListener();
     this.tick = this.tick.bind(this);
     this.tick();
+    this.gui.hide();
+    this.gui.add(this, 'debug');
+  }
+
+  showGui(): void {
+    this.gui.show();
+  }
+  get aspRatio(): number {
+    return this.width / this.height;
   }
 
   setRenderer(): void {
@@ -47,13 +60,18 @@ export default class CreateThreeEnv {
     }
   }
   setCamera(): void {
-    this.camera = new PerspectiveCamera(75, this.width / this.height, 0.1, 100);
+    if (this.cameraType === 'orthographic') {
+      this.camera = new OrthographicCamera(-1 * this.aspRatio, 1 * this.aspRatio, 1, -1, 0.1, 100);
+    } else {
+      this.camera = new PerspectiveCamera(75, this.width / this.height, 0.1, 100);
+    }
   }
   setScene(): void {
     this.scene = new Scene();
   }
   setControls(): void {
     if (this.canvas) {
+      console.log(this.camera);
       this.controls = new OrbitControls(this.camera, this.canvas);
       this.controls.enableDamping = true;
     }
@@ -65,7 +83,14 @@ export default class CreateThreeEnv {
     this.height = window.innerHeight;
 
     // Update camera
-    this.camera.aspect = this.width / this.height;
+    if (this.camera instanceof OrthographicCamera) {
+      this.camera.left = -1 * this.aspRatio;
+      this.camera.right = 1 * this.aspRatio;
+      this.camera.top = 1;
+      this.camera.bottom = -1;
+    } else {
+      this.camera.aspect = this.width / this.height;
+    }
     this.camera.updateProjectionMatrix();
 
     // Update renderer

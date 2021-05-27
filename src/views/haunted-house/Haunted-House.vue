@@ -21,7 +21,6 @@ export default class HauntedHouse extends Vue {
   }
 
   beforeDestroy(): void {
-    console.log('beforeDestroy');
     this.hauntedHouse.destroy();
   }
 }
