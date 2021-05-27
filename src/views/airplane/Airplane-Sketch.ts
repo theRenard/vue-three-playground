@@ -6,7 +6,7 @@ import createLights from './lights';
 import createAirplane from './airplane';
 
 export default class AirplaneSketch extends Sketch {
-  sea!: Mesh;
+  sea!: any;
 
   init(canvasEl: HTMLCanvasElement): void {
     super.init(canvasEl, 'orthographic');
@@ -29,8 +29,6 @@ export default class AirplaneSketch extends Sketch {
   }
 
   update(elapsedTime: number): void {
-    if (this?.sea?.material?.uniforms?.uTime) {
-      this.sea.material.uniforms.uTime.value = elapsedTime;
-    }
+    this.sea.material.uniforms.uTime.value = elapsedTime;
   }
 }
