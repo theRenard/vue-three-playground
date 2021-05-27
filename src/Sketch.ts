@@ -7,6 +7,7 @@ import {
   PCFSoftShadowMap,
   Clock,
   OrthographicCamera,
+  AxesHelper,
 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
@@ -60,6 +61,9 @@ export default class Sketch {
     }
   }
   setCamera(): void {
+    const axesHelper = new AxesHelper(3);
+    this.scene.add(axesHelper);
+
     if (this.cameraType === 'orthographic') {
       this.camera = new OrthographicCamera(-1 * this.aspRatio, 1 * this.aspRatio, 1, -1, 0.1, 100);
     } else {
@@ -128,5 +132,10 @@ export default class Sketch {
 
   destroy(): void {
     this.gui.destroy();
+    // Remember to remove
+    // meshes from scene
+    // geometries
+    // materials
+    // textures
   }
 }
