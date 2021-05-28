@@ -6,7 +6,7 @@
    </nav>
 
    <Sidebar>
-    <ul id="nav">
+    <ul class="sidebar-panel-nav">
       <li>
         <router-link to="/">Home</router-link> |
       </li>

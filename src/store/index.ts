@@ -9,9 +9,7 @@ export default new Vuex.Store({
   },
   mutations: {
     toggleNav(state) {
-      // eslint-disable-next-line no-param-reassign
       state.isNavOpen = !state.isNavOpen;
-      console.log(state.isNavOpen);
     },
   },
   actions: {
