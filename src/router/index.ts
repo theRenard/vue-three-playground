@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
-import store from '@/store';
 import Home from '../views/Home.vue';
 
 Vue.use(VueRouter);
@@ -12,6 +11,11 @@ const routes: Array<RouteConfig> = [
     component: Home,
   },
   {
+    path: '/materials',
+    name: 'Materials',
+    component: () => import(/* webpackChunkName: "Materials" */ '../views/materials/Materials.vue'),
+  },
+  {
     path: '/haunted-house',
     name: 'HauntedHouse',
     component: () => import(/* webpackChunkName: "HauntedHouse" */ '../views/haunted-house/Haunted-House.vue'),
@@ -20,6 +24,11 @@ const routes: Array<RouteConfig> = [
     path: '/airplane',
     name: 'Airplane',
     component: () => import(/* webpackChunkName: "Airplane" */ '../views/airplane/Airplane.vue'),
+  },
+  {
+    path: '/terrain',
+    name: 'Terrain',
+    component: () => import(/* webpackChunkName: "Terrain" */ '../views/terrain/Terrain.vue'),
   },
 ];
 
@@ -30,7 +39,6 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  store.commit('toggleNav');
   next();
 });
 

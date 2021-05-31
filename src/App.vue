@@ -6,11 +6,19 @@
    </nav>
 
    <Sidebar>
-    <ul class="sidebar-panel-nav">
+    <ul class="sidebar-panel-nav" @click="$store.commit('toggleNav');">
       <li>
-        <router-link to="/">Home</router-link> |
+        <router-link to="/">Home</router-link>
       </li>
-      <!-- <router-link to="/haunted-house">Haunted House</router-link> -->
+      <li>
+      <router-link to="/materials">Materials</router-link>
+      </li>
+      <li>
+      <router-link to="/haunted-house">Haunted House</router-link>
+      </li>
+      <li>
+        <router-link to="/terrain">Terrain</router-link>
+      </li>
       <li>
         <router-link to="/airplane">Airplane</router-link>
       </li>
@@ -62,7 +70,6 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   width: 100vw;
   height: 100vh;

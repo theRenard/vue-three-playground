@@ -25,6 +25,7 @@ export default class Sketch {
   height = window.innerHeight;
   cameraType!: 'perspective' | 'orthographic';
   debug = false;
+  isReadyToRender = false;
 
   init(canvasEl: HTMLCanvasElement, cameraType: 'perspective' | 'orthographic' = 'perspective'): void {
     this.canvas = canvasEl;
@@ -35,10 +36,9 @@ export default class Sketch {
     this.setControls();
     this.resize = this.resize.bind(this);
     this.addResizeListener();
+    this.addGui();
     this.tick = this.tick.bind(this);
     this.tick();
-    this.gui.hide();
-    this.gui.add(this, 'debug');
   }
 
   showGui(): void {
@@ -76,7 +76,6 @@ export default class Sketch {
   }
   setControls(): void {
     if (this.canvas) {
-      console.log(this.camera);
       this.controls = new OrbitControls(this.camera, this.canvas);
       this.controls.enableDamping = true;
     }
@@ -119,7 +118,7 @@ export default class Sketch {
   tick(): void {
     this.elapsedTime = this.clock.getElapsedTime();
 
-    this.update(this.elapsedTime);
+    if (this.isReadyToRender) this.update(this.elapsedTime);
 
     // Update controls
     this.controls.update();
@@ -129,6 +128,11 @@ export default class Sketch {
 
     // Call tick again on the next frame
     this.animationReq = window.requestAnimationFrame(this.tick);
+  }
+
+  addGui(): void {
+    this.gui.hide();
+    this.gui.add(this, 'debug');
   }
 
   destroy(): void {

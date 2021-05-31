@@ -85,8 +85,8 @@ export default class AirplaneSketch extends Sketch {
         this.scene.add(this.airplane);
 
         this.airplaneAnimation = gsap.to([this.airplane.position, this.airplane.rotation], {
-          duration: 'random(1, 5)',
-          x: 'random(-0.3, 0.3)',
+          duration: 'random(3, 5)',
+          x: 'random(-0.1, 0.1)',
           y: 'random(-0.1, 0.2)',
           z: 'random(-0.05, 0.05)',
           ease: 'power1.inOut',
@@ -113,7 +113,7 @@ export default class AirplaneSketch extends Sketch {
   }
 
   addSea(): void {
-    this.waterGeometry = new PlaneGeometry(2, 2, 512, 512);
+    this.waterGeometry = new PlaneGeometry(4, 4, 128, 128);
 
     // Material
     this.waterMaterial = new ShaderMaterial({
@@ -135,12 +135,18 @@ export default class AirplaneSketch extends Sketch {
         uSurfaceColor: { value: new Color(this.debugObject.surfaceColor) },
         uColorOffset: { value: 0.08 },
         uColorMultiplier: { value: 5 },
+
+        uNormalMap: { value: null },
       },
     });
 
     this.sea = new Mesh(this.waterGeometry, this.waterMaterial);
+    this.sea.position.y = -0.5;
     this.sea.rotation.x = -Math.PI * 0.5;
     this.scene.add(this.sea);
+    const textureLoader = new TextureLoader();
+    this.waterMaterial.uniforms.uNormalMap.value = textureLoader.load('./textures/moving_sea/wavemap.png');
+
   }
 
   removeSea(): void {
