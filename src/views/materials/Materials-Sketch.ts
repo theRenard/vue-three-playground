@@ -2,6 +2,7 @@ import Sketch from '@/Sketch';
 import {
   AmbientLight,
   BoxGeometry,
+  CameraHelper,
   DirectionalLight,
   DirectionalLightHelper,
   LineBasicMaterial,
@@ -9,8 +10,11 @@ import {
   MeshBasicMaterial,
   MeshDepthMaterial,
   MeshLambertMaterial,
+  MeshNormalMaterial,
   MeshPhongMaterial,
+  MeshToonMaterial,
   PlaneGeometry,
+  SpotLight,
 } from 'three';
 
 type GeometryMaterial =
@@ -18,6 +22,8 @@ type GeometryMaterial =
   | MeshBasicMaterial
   | MeshDepthMaterial
   | MeshPhongMaterial
+  | MeshNormalMaterial
+  | MeshToonMaterial
   | MeshLambertMaterial;
 
 type GeometryMaterialNames =
@@ -25,11 +31,15 @@ type GeometryMaterialNames =
 | 'meshBasicMaterial'
 | 'meshDepthMaterial'
 | 'meshPhongMaterial'
+| 'meshNormalMaterial'
+| 'meshToonMaterial'
 | 'meshLambertMaterial';
 
 export default class MaterialsSketch extends Sketch {
   materials: { [k in GeometryMaterialNames]: GeometryMaterial };
   ambientLight: AmbientLight;
+  spotLight: SpotLight;
+  spotLightCameraHelper: CameraHelper;
   directionalLight: DirectionalLight;
   directionalLightHelper: DirectionalLightHelper;
   cubeGeometry: BoxGeometry;
@@ -37,9 +47,10 @@ export default class MaterialsSketch extends Sketch {
   planeGeometry: PlaneGeometry;
   planeMesh: Mesh;
   options = {
-    meshMaterial: 'meshBasicMaterial' as GeometryMaterialNames,
+    meshMaterial: 'meshPhongMaterial' as GeometryMaterialNames,
     color: '#186691',
-    wireframe: true,
+    wireframe: false,
+    wireframeLinewidth: 3,
   }
 
   init(canvasEl: HTMLCanvasElement): void {
@@ -47,7 +58,8 @@ export default class MaterialsSketch extends Sketch {
     this.createMaterials();
     // this.addPlane();
     this.addCube();
-    this.addLights();
+    this.addSpotLight();
+    // this.addLights();
     this.addMoreGui();
     this.camera.position.x = 1;
     this.camera.position.y = 1;
@@ -88,6 +100,12 @@ export default class MaterialsSketch extends Sketch {
         wireframe: this.options.wireframe,
       }),
 
+      meshNormalMaterial: new MeshNormalMaterial(),
+      meshToonMaterial: new MeshToonMaterial({
+        color: this.options.color,
+        wireframe: this.options.wireframe,
+      }),
+
     };
   }
 
@@ -105,6 +123,29 @@ export default class MaterialsSketch extends Sketch {
     this.scene.remove(this.ambientLight);
     this.scene.remove(this.directionalLight);
     this.scene.remove(this.directionalLightHelper);
+  }
+
+  addSpotLight(): void {
+    this.spotLight = new SpotLight(0xffffff, 2, 10, Math.PI * 0.3);
+
+    this.spotLight.castShadow = true;
+    this.spotLight.shadow.mapSize.width = 1024;
+    this.spotLight.shadow.mapSize.height = 1024;
+    this.spotLight.shadow.camera.fov = 30;
+    this.spotLight.shadow.camera.near = 1;
+    this.spotLight.shadow.camera.far = 6;
+    this.scene.add(this.spotLight);
+    this.scene.add(this.spotLight.target);
+
+    this.spotLightCameraHelper = new CameraHelper(this.spotLight.shadow.camera);
+    this.scene.add(this.spotLightCameraHelper);
+
+  }
+
+  removeSpotLight(): void {
+    this.scene.remove(this.spotLight.target);
+    this.scene.remove(this.spotLight);
+    this.scene.remove(this.spotLightCameraHelper);
   }
 
   addCube(): void {
@@ -141,9 +182,7 @@ export default class MaterialsSketch extends Sketch {
     this.gui.add(this.options, 'wireframe').onChange(() => {
       materialNames.forEach((materialName) => {
         const material = this.materials[materialName] as GeometryMaterial;
-        if (material instanceof MeshBasicMaterial
-          || material instanceof MeshLambertMaterial
-          || material instanceof MeshPhongMaterial) {
+        if (!(material instanceof LineBasicMaterial)) {
           material.wireframe = this.options.wireframe;
         }
       });
@@ -156,9 +195,9 @@ export default class MaterialsSketch extends Sketch {
 
         materialNames.forEach((materialName) => {
           const material = this.materials[materialName] as GeometryMaterial;
-          if (material instanceof MeshBasicMaterial
-            || material instanceof MeshLambertMaterial
-            || material instanceof MeshPhongMaterial) {
+          if (!(material instanceof MeshNormalMaterial)
+          && !(material instanceof MeshDepthMaterial)
+          ) {
             material.color.set(this.options.color);
           }
         });
@@ -167,7 +206,11 @@ export default class MaterialsSketch extends Sketch {
   }
 
   update(elapsedTime: number): void {
-    this.cubeMesh.rotation.y = Math.sin(elapsedTime);
+    this.cubeMesh.rotation.y -= 0.01;
+    this.spotLight.position.x = Math.sin(elapsedTime * 0.5);
+    this.spotLight.position.z = Math.cos(elapsedTime * 0.5);
+    this.spotLight.position.y = 1;
+    this.spotLight.lookAt(this.cubeMesh.position);
   }
 
   destroy(): void {
