@@ -1,11 +1,10 @@
-import Sketch from '@/Sketch';
+import Sketch from '@/Three-Sketch';
 import {
   AmbientLight,
   BoxGeometry,
   CameraHelper,
   DirectionalLight,
   DirectionalLightHelper,
-  LineBasicMaterial,
   Mesh,
   MeshBasicMaterial,
   MeshDepthMaterial,
@@ -15,10 +14,11 @@ import {
   MeshToonMaterial,
   PlaneGeometry,
   SpotLight,
+  Texture,
+  TextureLoader,
 } from 'three';
 
 type GeometryMaterial =
-  | LineBasicMaterial
   | MeshBasicMaterial
   | MeshDepthMaterial
   | MeshPhongMaterial
@@ -27,7 +27,6 @@ type GeometryMaterial =
   | MeshLambertMaterial;
 
 type GeometryMaterialNames =
-| 'lineBasicMaterial'
 | 'meshBasicMaterial'
 | 'meshDepthMaterial'
 | 'meshPhongMaterial'
@@ -37,6 +36,7 @@ type GeometryMaterialNames =
 
 export default class MaterialsSketch extends Sketch {
   materials: { [k in GeometryMaterialNames]: GeometryMaterial };
+  alphaMaps: { [key: string]: Texture | null };
   ambientLight: AmbientLight;
   spotLight: SpotLight;
   spotLightCameraHelper: CameraHelper;
@@ -46,15 +46,18 @@ export default class MaterialsSketch extends Sketch {
   cubeMesh: Mesh;
   planeGeometry: PlaneGeometry;
   planeMesh: Mesh;
+  textureLoader: TextureLoader;
   options = {
     meshMaterial: 'meshPhongMaterial' as GeometryMaterialNames,
     color: '#186691',
     wireframe: false,
+    alphaMap: 'none',
     wireframeLinewidth: 3,
   }
 
   init(canvasEl: HTMLCanvasElement): void {
-    super.init(canvasEl, 'perspective');
+    super.init(canvasEl, 'orthographic');
+    this.loadTextures();
     this.createMaterials();
     // this.addPlane();
     this.addCube();
@@ -67,22 +70,27 @@ export default class MaterialsSketch extends Sketch {
     this.isReadyToRender = true;
   }
 
-  createMaterials(): void {
-    this.materials = {
+  loadTextures(): void {
+    const textureLoader = new TextureLoader();
 
-      // A material for drawing wireframe-style geometries.
-      lineBasicMaterial: new LineBasicMaterial({
-        color: this.options.color,
-        linewidth: 2,
-        linecap: 'square',
-        linejoin: 'bevel',
-      }),
+    this.alphaMaps = {
+      none: null,
+      alphaMap_One: textureLoader.load('./textures/cube/cube_alphaMap.jpg'),
+      alphaMap_Two: textureLoader.load('./textures/cube/cube_alphaMap_2.png'),
+    };
+  }
+
+  createMaterials(): void {
+
+    this.materials = {
 
       // A material for drawing geometries in a simple shaded (flat or wireframe) way.
       // This material is not affected by lights.
       meshBasicMaterial: new MeshBasicMaterial({
         color: this.options.color,
         wireframe: this.options.wireframe,
+        alphaMap: this.alphaMaps[this.options.alphaMap],
+        transparent: true,
       }),
 
       // A MeshDepthMaterial
@@ -91,18 +99,24 @@ export default class MaterialsSketch extends Sketch {
       // A material for non-shiny surfaces, without specular highlights.
       meshLambertMaterial: new MeshLambertMaterial({
         color: this.options.color,
+        alphaMap: this.alphaMaps[this.options.alphaMap],
+        transparent: true,
         wireframe: this.options.wireframe,
       }),
 
       // A material for shiny surfaces with specular highlights.
       meshPhongMaterial: new MeshPhongMaterial({
         color: this.options.color,
+        alphaMap: this.alphaMaps[this.options.alphaMap],
+        transparent: true,
         wireframe: this.options.wireframe,
       }),
 
       meshNormalMaterial: new MeshNormalMaterial(),
       meshToonMaterial: new MeshToonMaterial({
         color: this.options.color,
+        alphaMap: this.alphaMaps[this.options.alphaMap],
+        transparent: true,
         wireframe: this.options.wireframe,
       }),
 
@@ -126,7 +140,7 @@ export default class MaterialsSketch extends Sketch {
   }
 
   addSpotLight(): void {
-    this.spotLight = new SpotLight(0xffffff, 2, 10, Math.PI * 0.3);
+    this.spotLight = new SpotLight(0xffffff, 1, 1, Math.PI * 0.3);
 
     this.spotLight.castShadow = true;
     this.spotLight.shadow.mapSize.width = 1024;
@@ -174,6 +188,7 @@ export default class MaterialsSketch extends Sketch {
   addMoreGui(): void {
 
     const materialNames = Object.keys(this.materials) as GeometryMaterialNames[];
+    const alphaMapNames = Object.keys(this.alphaMaps);
     this.gui.add(this.options, 'meshMaterial', materialNames).onChange(() => {
       this.cubeMesh.material = this.materials[this.options.meshMaterial];
       this.cubeMesh.material.needsUpdate = true;
@@ -182,10 +197,15 @@ export default class MaterialsSketch extends Sketch {
     this.gui.add(this.options, 'wireframe').onChange(() => {
       materialNames.forEach((materialName) => {
         const material = this.materials[materialName] as GeometryMaterial;
-        if (!(material instanceof LineBasicMaterial)) {
-          material.wireframe = this.options.wireframe;
-        }
+        material.wireframe = this.options.wireframe;
       });
+    });
+
+    this.gui.add(this.options, 'alphaMap', alphaMapNames).onChange(() => {
+      if (this.cubeMesh.material instanceof MeshBasicMaterial) {
+        this.cubeMesh.material.alphaMap = this.alphaMaps[this.options.alphaMap];
+        this.cubeMesh.material.needsUpdate = true;
+      }
     });
 
     this.gui
@@ -207,8 +227,8 @@ export default class MaterialsSketch extends Sketch {
 
   update(elapsedTime: number): void {
     this.cubeMesh.rotation.y -= 0.01;
-    this.spotLight.position.x = Math.sin(elapsedTime * 0.5);
-    this.spotLight.position.z = Math.cos(elapsedTime * 0.5);
+    this.spotLight.position.x = Math.sin(elapsedTime * 0.5) * 3;
+    this.spotLight.position.z = Math.cos(elapsedTime * 0.5) * 3;
     this.spotLight.position.y = 1;
     this.spotLight.lookAt(this.cubeMesh.position);
   }

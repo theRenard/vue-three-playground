@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 /* eslint-disable newline-per-chained-call */
-import Sketch from '@/Sketch';
+import Sketch from '@/Three-Sketch';
 import {
   AmbientLight, DirectionalLight, PointLight, PlaneGeometry, ShaderMaterial, Vector2, Color, Mesh, LoadingManager, TextureLoader, Texture,
 } from 'three';

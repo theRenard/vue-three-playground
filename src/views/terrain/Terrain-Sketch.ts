@@ -1,4 +1,4 @@
-import Sketch from '@/Sketch';
+import Sketch from '@/Three-Sketch';
 import CreateTerrain from './Create-Terrain';
 
 export default class TerrainSketch extends Sketch {

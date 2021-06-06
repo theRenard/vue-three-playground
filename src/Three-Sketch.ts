@@ -19,7 +19,9 @@ export default class Sketch {
   controls!: OrbitControls;
   clock = new Clock();
   animationReq: number;
-  gui: dat.GUI = new dat.GUI();
+  gui: dat.GUI = new dat.GUI({
+    width: 300,
+  });
   elapsedTime = 0;
   width = window.innerWidth;
   height = window.innerHeight;

@@ -11,6 +11,9 @@
         <router-link to="/">Home</router-link>
       </li>
       <li>
+      <router-link to="/platform">Platform</router-link>
+      </li>
+      <li>
       <router-link to="/materials">Materials</router-link>
       </li>
       <li>

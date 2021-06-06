@@ -1,4 +1,4 @@
-import Sketch from '@/Sketch';
+import Sketch from '@/Three-Sketch';
 
 export default class TemplateSketch extends Sketch {
   init(canvasEl: HTMLCanvasElement): void {

@@ -1,4 +1,4 @@
-import Sketch from '@/Sketch';
+import Sketch from '@/Three-Sketch';
 import floor from './floor';
 import fog from './fog';
 import house from './house/house';

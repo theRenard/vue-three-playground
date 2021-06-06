@@ -13,6 +13,7 @@
     "dat.gui": "^0.7.7",
     "fast-simplex-noise": "^4.0.0",
     "gsap": "^3.6.1",
+    "phaser": "^3.55.2",
     "three": "^0.128.0",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",

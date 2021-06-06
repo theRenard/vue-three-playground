@@ -16,6 +16,8 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'lines-between-class-members': 'off',
     'padded-blocks': 'off',
+    'no-param-reassign': 'off',
+    'max-len': 'off'
   },
   overrides: [
     {
