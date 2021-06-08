@@ -5,14 +5,14 @@
 <script lang="ts">
 
 import { Vue, Component } from 'vue-property-decorator';
-import EarthSketch from './Earth-Sketch';
+import Sketch from './Door-Sketch';
 
 @Component
 export default class Materials extends Vue {
-  sketch: EarthSketch;
+  sketch: Sketch;
 
   mounted(): void {
-    this.sketch = new EarthSketch();
+    this.sketch = new Sketch();
     this.sketch.init(this.$el as HTMLCanvasElement);
   }
 

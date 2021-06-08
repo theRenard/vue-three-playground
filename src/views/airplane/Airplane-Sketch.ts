@@ -29,12 +29,14 @@ export default class AirplaneSketch extends Sketch {
     super.init(canvasEl, 'orthographic');
     this.addLights();
     this.addSea();
-    this.addGui();
     this.addAirplane();
 
     this.camera.position.x = 1;
     this.camera.position.y = 1;
     this.camera.position.z = 1;
+
+    this.addGui();
+    this.isReadyToRender = true;
   }
 
   addLights(): void {
@@ -156,9 +158,7 @@ export default class AirplaneSketch extends Sketch {
   }
 
   update(elapsedTime: number): void {
-    if (this.sea) {
-      this.sea.material.uniforms.uTime.value = elapsedTime;
-    }
+    this.sea.material.uniforms.uTime.value = elapsedTime;
   }
 
   addGui(): void {

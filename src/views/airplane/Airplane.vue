@@ -9,12 +9,11 @@ import AirplaneSketch from './Airplane-Sketch';
 
 @Component
 export default class Airplane extends Vue {
-  sketch = new AirplaneSketch();
+  sketch: AirplaneSketch;
 
   mounted(): void {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    this.sketch = new AirplaneSketch();
     this.sketch.init(this.$el as HTMLCanvasElement);
-    this.sketch.showGui();
   }
 
   beforeDestroy(): void {

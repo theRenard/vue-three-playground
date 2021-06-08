@@ -9,9 +9,10 @@ import PlatformSketch from './Platform-Sketch';
 
 @Component
 export default class Template extends Vue {
-  sketch = new PlatformSketch();
+  sketch: PlatformSketch;
 
   mounted(): void {
+    this.sketch = new PlatformSketch();
     this.sketch.init();
   }
 

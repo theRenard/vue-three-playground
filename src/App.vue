@@ -20,7 +20,7 @@
       <router-link to="/haunted-house">Haunted House</router-link>
       </li>
       <li>
-        <router-link to="/terrain">Terrain</router-link>
+        <router-link to="/door">Door</router-link>
       </li>
       <li>
         <router-link to="/airplane">Airplane</router-link>

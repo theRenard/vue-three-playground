@@ -9,12 +9,11 @@ import TerrainSketch from './Terrain-Sketch';
 
 @Component
 export default class Terrain extends Vue {
-  sketch = new TerrainSketch();
+  sketch: TerrainSketch;
 
   mounted(): void {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    this.sketch = new TerrainSketch();
     this.sketch.init(this.$el as HTMLCanvasElement);
-    this.sketch.showGui();
   }
 
   beforeDestroy(): void {

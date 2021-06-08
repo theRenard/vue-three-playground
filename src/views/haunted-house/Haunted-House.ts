@@ -22,6 +22,8 @@ export default class HauntedHouse extends Sketch {
     this.camera.position.x = 4;
     this.camera.position.y = 2;
     this.camera.position.z = 5;
+
+    this.isReadyToRender = true;
   }
 
   // eslint-disable-next-line class-methods-use-this

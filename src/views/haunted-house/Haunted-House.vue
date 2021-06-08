@@ -13,10 +13,11 @@ import HauntedHouseEnv from './Haunted-House';
 
 @Component
 export default class HauntedHouse extends Vue {
-  hauntedHouse = new HauntedHouseEnv();
+  hauntedHouse: HauntedHouseEnv;
 
   mounted(): void {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    this.hauntedHouse = new HauntedHouseEnv();
     this.hauntedHouse.init(this.$el as HTMLCanvasElement);
   }
 

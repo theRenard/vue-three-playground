@@ -112,5 +112,17 @@ export default class EarthSketch extends Sketch {
 
   destroy(): void {
     super.destroy();
+    this.scene.remove(this.starMesh);
+    this.scene.remove(this.earthMesh);
+    this.scene.remove(this.cloudMesh);
+    this.scene.remove(this.ambientlight);
+    this.scene.remove(this.pointLight);
+    this.scene.remove(this.Helper);
+    this.earthGeometry.dispose();
+    this.cloudGeometry.dispose();
+    this.starGeometry.dispose();
+    this.earthMaterial.dispose();
+    this.cloudMetarial.dispose();
+    this.starMaterial.dispose();
   }
 }

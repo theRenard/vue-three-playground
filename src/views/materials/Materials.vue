@@ -9,12 +9,11 @@ import MaterialsSketch from './Materials-Sketch';
 
 @Component
 export default class Materials extends Vue {
-  sketch = new MaterialsSketch();
+  sketch: MaterialsSketch;
 
   mounted(): void {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    this.sketch = new MaterialsSketch();
     this.sketch.init(this.$el as HTMLCanvasElement);
-    this.sketch.showGui();
   }
 
   beforeDestroy(): void {

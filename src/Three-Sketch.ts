@@ -38,7 +38,7 @@ export default class Sketch {
     this.setControls();
     this.resize = this.resize.bind(this);
     this.addResizeListener();
-    this.addGui();
+    this.addInitialGui();
     this.tick = this.tick.bind(this);
     this.tick();
   }
@@ -132,9 +132,10 @@ export default class Sketch {
     this.animationReq = window.requestAnimationFrame(this.tick);
   }
 
-  addGui(): void {
-    this.gui.hide();
-    this.gui.add(this, 'debug');
+  // eslint-disable-next-line class-methods-use-this
+  addInitialGui(): void {
+    // this.gui.hide();
+    // this.gui.add(this, 'debug');
   }
 
   destroy(): void {
