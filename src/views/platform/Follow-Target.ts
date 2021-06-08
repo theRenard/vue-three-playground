@@ -42,7 +42,7 @@ export default class Game extends Scene {
       circle: {
         x: halfWidth,
         y: halfHeight,
-        size: halfHeight,
+        size: halfHeight * 0.5,
       },
       speed: 2000,
     };
@@ -62,14 +62,16 @@ export default class Game extends Scene {
 
     this.time.addEvent({
       delay: 1000,
-      repeat: 10,
+      repeat: -1,
       callback: () => {
         const weapon = this.add.image(this.airplanes.USb17.sprite.x, this.airplanes.USb17.sprite.y, 'weapons', 'Missile_1.png');
         weapon.scale = 0.4;
+        weapon.rotation = this.airplanes.USb17.sprite.rotation + Math.PI / 2;
         this.weapons.push(weapon);
+
         setTimeout(() => {
           this.weapons[0].destroy();
-        }, 3000);
+        }, 1000000);
       },
     });
 
@@ -83,7 +85,7 @@ export default class Game extends Scene {
     });
 
     this.weapons.forEach((weapon) => {
-      actions.followTarget(weapon, this.airplanes.JAPKi45.sprite);
+      actions.followTarget(weapon, this.airplanes.JAPKi45.sprite, 1, time);
     });
 
   }

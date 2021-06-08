@@ -18,16 +18,21 @@ export default {
       obj.rotation = speed;
     }
   },
-  followTarget(obj: unknown, target: unknown, speed = 1): void {
+  followTarget(obj: unknown, target: unknown, speed = 2, time: number): void {
     if (obj instanceof Phaser.GameObjects.Image && target instanceof Phaser.GameObjects.Image) {
       const angle = Math.atan2(target.y - obj.y, target.x - obj.x);
-      const diff = obj.rotation - angle;
-      // console.log(obj);
-      // if (false) {
-      //   obj.rotation += Math.sin(angle - obj.rotation);
-      //   obj.x += speed * Math.cos(angle);
-      //   obj.y += speed * Math.sin(angle);
-      // }
+      const distance = Math.hypot(target.x - obj.x, target.y - obj.y);
+      const newAngle = angle - obj.rotation;
+      if (
+        (distance > 100 && Math.abs(newAngle) < 0.5)
+        || distance > 300) {
+        obj.rotation += Math.sin(newAngle);
+        obj.x += speed * Math.cos(angle);
+        obj.y += speed * Math.sin(angle);
+      } else {
+        obj.x += speed * Math.cos(obj.rotation);
+        obj.y += speed * Math.sin(obj.rotation);
+      }
     }
   },
 };

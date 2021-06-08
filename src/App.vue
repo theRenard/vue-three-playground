@@ -25,6 +25,9 @@
       <li>
         <router-link to="/airplane">Airplane</router-link>
       </li>
+      <li>
+        <router-link to="/earth">Earth</router-link>
+      </li>
     </ul>
    </Sidebar>
 

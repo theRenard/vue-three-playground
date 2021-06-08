@@ -31,6 +31,11 @@ const routes: Array<RouteConfig> = [
     component: () => import(/* webpackChunkName: "Airplane" */ '../views/airplane/Airplane.vue'),
   },
   {
+    path: '/earth',
+    name: 'Earth',
+    component: () => import(/* webpackChunkName: "Earth" */ '../views/earth/Earth.vue'),
+  },
+  {
     path: '/terrain',
     name: 'Terrain',
     component: () => import(/* webpackChunkName: "Terrain" */ '../views/terrain/Terrain.vue'),
