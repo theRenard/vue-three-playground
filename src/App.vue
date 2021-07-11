@@ -8,26 +8,23 @@
    <Sidebar>
     <ul class="sidebar-panel-nav" @click="$store.commit('toggleNav');">
       <li>
+        <span>Three</span>
+        <ul class="sub-menu">
+          <li><router-link to="/materials">Materials</router-link></li>
+          <li><router-link to="/door">Door</router-link></li>
+          <li><router-link to="/airplane">Airplane</router-link></li>
+          <li><router-link to="/earth">Earth</router-link></li>
+          <li><router-link to="/terrain">Terrain</router-link></li>
+          <li><router-link to="/haunted-house">Haunted House</router-link></li>
+        </ul>
+      </li>
+      <li>
         <router-link to="/">Home</router-link>
       </li>
       <li>
       <router-link to="/platform">Platform</router-link>
       </li>
-      <li>
-      <router-link to="/materials">Materials</router-link>
-      </li>
-      <li>
-      <router-link to="/haunted-house">Haunted House</router-link>
-      </li>
-      <li>
-        <router-link to="/door">Door</router-link>
-      </li>
-      <li>
-        <router-link to="/airplane">Airplane</router-link>
-      </li>
-      <li>
-        <router-link to="/earth">Earth</router-link>
-      </li>
+
     </ul>
    </Sidebar>
 
@@ -48,7 +45,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 
  .main-nav {
    display: flex;
@@ -58,17 +55,29 @@ export default {
    right: 0;
  }
 
- ul.sidebar-panel-nav {
+ ul {
    list-style-type: none;
  }
 
+ ul.sidebar-panel-nav > li > span,
  ul.sidebar-panel-nav > li > a {
    color: #fff;
    text-decoration: none;
-   font-size: 1.5rem;
+   font-size: 1.2rem;
    display: block;
    padding-bottom: 0.5em;
  }
+ ul.sub-menu {
+   padding-left: 20px;
+ }
+ ul.sub-menu > li > span,
+ ul.sub-menu > li > a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.8rem;
+    display: block;
+    padding-bottom: 0.5em;
+  }
 </style>
 
 <style lang="scss">

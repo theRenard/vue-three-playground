@@ -6,6 +6,7 @@ import actions from '@/Utils/actions';
 
 export default class Game extends Scene {
   private fpsText!: Phaser.GameObjects.Text;
+  private incremental = 0;
   private airplanes: {
     [key: string]: {
       sprite: Phaser.GameObjects.Image;
@@ -85,7 +86,7 @@ export default class Game extends Scene {
     });
 
     this.weapons.forEach((weapon) => {
-      actions.followTarget(weapon, this.airplanes.JAPKi45.sprite, 1, time);
+      actions.followTarget(weapon, this.airplanes.JAPKi45.sprite, 1, this.incremental += 1);
     });
 
   }
