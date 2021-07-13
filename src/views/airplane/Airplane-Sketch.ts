@@ -1,9 +1,7 @@
-/* eslint-disable max-len */
-/* eslint-disable newline-per-chained-call */
 import Sketch from '@/engines/Three/Three';
-import Lights from './Lights';
-import Airplane from './Airplane';
-import Sea from './Sea';
+import Lights from './entities/Lights';
+import Airplane from './entities/Airplane';
+import Sea from './entities/Sea';
 
 export default class AirplaneSketch extends Sketch {
 

@@ -7,7 +7,7 @@ import {
 } from 'three';
 
 export default class Airplane extends Entity {
-  sea: any;
+  sea: Mesh;
   waterGeometry: PlaneGeometry;
   waterMaterial: ShaderMaterial;
   debugObject = {
@@ -62,16 +62,19 @@ export default class Airplane extends Entity {
     this.getSketch().getGui().add(this.waterMaterial.uniforms.uColorMultiplier, 'value').min(0).max(10).step(0.001).name('uColorMultiplier');
     this.getSketch().getGui().addColor(this.debugObject, 'depthColor').onChange(() => { this.waterMaterial.uniforms.uDepthColor.value.set(this.debugObject.depthColor); });
     this.getSketch().getGui().addColor(this.debugObject, 'surfaceColor').onChange(() => { this.waterMaterial.uniforms.uSurfaceColor.value.set(this.debugObject.surfaceColor); });
+    console.log('add sea');
 
   }
   update(elapsedTime: number): void {
-    this.sea.material.uniforms.uTime.value = elapsedTime;
+    const { uniforms } = this.sea.material as ShaderMaterial;
+    uniforms.uTime.value = elapsedTime;
   }
 
   destroy(): void {
     this.getSketch().getScene().remove(this.sea);
     this.waterGeometry.dispose();
     this.waterMaterial.dispose();
+    console.log('removed sea');
 
   }
 }

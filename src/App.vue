@@ -10,12 +10,8 @@
       <li>
         <span>Three</span>
         <ul class="sub-menu">
-          <li><router-link to="/materials">Materials</router-link></li>
-          <li><router-link to="/door">Door</router-link></li>
           <li><router-link to="/airplane">Airplane</router-link></li>
-          <li><router-link to="/earth">Earth</router-link></li>
-          <li><router-link to="/terrain">Terrain</router-link></li>
-          <li><router-link to="/haunted-house">Haunted House</router-link></li>
+          <!-- <li><router-link to="/materials">Materials</router-link></li> -->
         </ul>
       </li>
       <li>

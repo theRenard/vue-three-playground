@@ -26,6 +26,7 @@ export default class Airplane extends Entity {
     this.getSketch().getGui().add(this.moonLight.position, 'x').min(-5).max(5).step(0.001);
     this.getSketch().getGui().add(this.moonLight.position, 'y').min(-5).max(5).step(0.001);
     this.getSketch().getGui().add(this.moonLight.position, 'z').min(-5).max(5).step(0.001);
+    console.log('add ligths');
 
   }
 
@@ -37,6 +38,7 @@ export default class Airplane extends Entity {
     this.getSketch().getScene().remove(this.ambientLight);
     this.getSketch().getScene().remove(this.moonLight);
     this.getSketch().getScene().remove(this.doorLight);
+    console.log('removed lights');
 
   }
 }

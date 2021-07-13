@@ -2,6 +2,7 @@
 import Sketch from './Three';
 
 export default abstract class Entity {
+
   abstract update(elapsedTime: number): void;
   private sketch: Sketch;
 

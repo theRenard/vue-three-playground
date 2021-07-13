@@ -49,6 +49,7 @@ export default class Sea extends Entity {
         console.log('An error happened');
       },
     );
+    console.log('added airplane');
 
   }
 
@@ -61,5 +62,6 @@ export default class Sea extends Entity {
     this.jetColorTexture.dispose();
     this.jetNormalTexture.dispose();
     this.airplaneAnimation.kill();
+    console.log('removed airplane');
   }
 }

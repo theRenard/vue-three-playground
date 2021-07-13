@@ -162,13 +162,8 @@ export default class Sketch {
 
     if (this.isReadyToRender) this.update(this.elapsedTime);
 
-    // Update controls
     this.controls.update();
-
-    // Render
     this.renderer.render(this.scene, this.camera);
-
-    // Call tick again on the next frame
     this.animationReq = window.requestAnimationFrame(this.tick);
   }
 
