@@ -10,35 +10,15 @@ const routes: Array<RouteConfig> = [
     name: 'Home',
     component: Home,
   },
-  {
-    path: '/platform',
-    name: 'Platform',
-    component: () => import(/* webpackChunkName: "Platform" */ '../views/platform/Platform.vue'),
-  },
-  {
-    path: '/materials',
-    name: 'Materials',
-    component: () => import(/* webpackChunkName: "Materials" */ '../views/materials/Materials.vue'),
-  },
-  {
-    path: '/haunted-house',
-    name: 'HauntedHouse',
-    component: () => import(/* webpackChunkName: "HauntedHouse" */ '../views/haunted-house/Haunted-House.vue'),
-  },
+  // {
+  //   path: '/materials',
+  //   name: 'Materials',
+  //   component: () => import(/* webpackChunkName: "Materials" */ '../views/materials/Materials.vue'),
+  // },
   {
     path: '/airplane',
     name: 'Airplane',
     component: () => import(/* webpackChunkName: "Airplane" */ '../views/airplane/Airplane.vue'),
-  },
-  {
-    path: '/earth',
-    name: 'Earth',
-    component: () => import(/* webpackChunkName: "Earth" */ '../views/earth/Earth.vue'),
-  },
-  {
-    path: '/door',
-    name: 'Door',
-    component: () => import(/* webpackChunkName: "Door" */ '../views/door/Door.vue'),
   },
 ];
 
