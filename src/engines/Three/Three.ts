@@ -119,6 +119,10 @@ export default class Sketch {
     }
   }
 
+  public getControls(): OrbitControls {
+    return this.controls;
+  }
+
   private resize(): void {
     // Update sizes
     Config.width = window.innerWidth;
