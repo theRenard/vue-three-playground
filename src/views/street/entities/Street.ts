@@ -37,7 +37,7 @@ export default class Street extends Entity {
         const road = gltf.scene.children.find((child) => child.name === 'lines') as Mesh;
 
         if (road) {
-          road.position.y += 0.0001;
+          road.position.y += 0.001;
           road.material = this.roadMaterial;
         }
 

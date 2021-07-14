@@ -1,4 +1,5 @@
 import Sketch from '@/engines/Three/Three';
+import Config from '@/engines/Three/Three-config';
 import Street from './entities/Street';
 
 export default class StreetSketch extends Sketch {
@@ -10,9 +11,19 @@ export default class StreetSketch extends Sketch {
 
     this.setEntity(street);
 
-    this.getCamera().position.x = 1;
-    this.getCamera().position.y = 1;
-    this.getCamera().position.z = 1;
+    const camera = this.getCamera() as THREE.OrthographicCamera;
+
+    camera.position.set(1, 1, 1);
+
+    camera.left = -3 * Config.aspRatio;
+    camera.right = 3 * Config.aspRatio;
+    camera.top = 3;
+    camera.bottom = -3;
+
+    camera.far = 1e4;
+    camera.near = -10;
+
+    camera.updateProjectionMatrix();
 
     this.isReadyToRender = true;
   }

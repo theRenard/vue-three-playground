@@ -16,8 +16,6 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 import Config from './Three-config';
 import Entity from './Three-Entity';
-import orthographic from './Three-Orto';
-import perspective from './Three-Perspective';
 import {
   manager, objLoader, gltfLoader, textureLoader,
 } from './Three-TextureLoader';
@@ -106,9 +104,9 @@ export default class Sketch {
     this.scene.add(axesHelper);
 
     if (this.cameraType === 'orthographic') {
-      this.camera = orthographic;
+      this.camera = new OrthographicCamera(-3 * Config.aspRatio, 3 * Config.aspRatio, 3, -3, 0.1, 100);
     } else {
-      this.camera = perspective;
+      this.camera = new PerspectiveCamera(75, Config.width / Config.height, 0.1, 100);
     }
   }
   private setScene(): void {
