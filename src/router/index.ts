@@ -20,6 +20,11 @@ const routes: Array<RouteConfig> = [
     name: 'Airplane',
     component: () => import(/* webpackChunkName: "Airplane" */ '../views/airplane/Airplane.vue'),
   },
+  {
+    path: '/street',
+    name: 'Street',
+    component: () => import(/* webpackChunkName: "Airplane" */ '../views/street/Street.vue'),
+  },
 ];
 
 const router = new VueRouter({

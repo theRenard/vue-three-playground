@@ -9,15 +9,18 @@ import {
   Clock,
   OrthographicCamera,
   AxesHelper,
-  LoadingManager, TextureLoader,
+  LoadingManager, TextureLoader, sRGBEncoding,
 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 import Config from './Three-config';
 import Entity from './Three-Entity';
 import orthographic from './Three-Orto';
 import perspective from './Three-Perspective';
-import { manager, jetObjLoader, textureLoader } from './Three-TextureLoader';
+import {
+  manager, objLoader, gltfLoader, textureLoader,
+} from './Three-TextureLoader';
 
 export default class Sketch {
   private canvas: HTMLCanvasElement | null = null;
@@ -27,7 +30,8 @@ export default class Sketch {
   private controls!: OrbitControls;
 
   private manager = manager;
-  private jetObjLoader = jetObjLoader;
+  private objLoader = objLoader;
+  private gltfLoader = gltfLoader;
   private textureLoader = textureLoader;
   private clock = new Clock();
   private animationReq: number;
@@ -59,10 +63,11 @@ export default class Sketch {
     this.entities.push(entity);
   }
 
-  public getLoaders(): { manager: LoadingManager, jetObjLoader: OBJLoader, textureLoader: TextureLoader } {
+  public getLoaders(): { manager: LoadingManager, objLoader: OBJLoader, gltfLoader: GLTFLoader, textureLoader: TextureLoader } {
     return {
       manager: this.manager,
-      jetObjLoader: this.jetObjLoader,
+      objLoader: this.objLoader,
+      gltfLoader: this.gltfLoader,
       textureLoader: this.textureLoader,
     };
   }
@@ -92,6 +97,8 @@ export default class Sketch {
       this.renderer.setClearColor('#262837');
       this.renderer.shadowMap.enabled = true;
       this.renderer.shadowMap.type = PCFSoftShadowMap;
+      this.renderer.outputEncoding = sRGBEncoding;
+
     }
   }
   private setCamera(): void {

@@ -14,7 +14,7 @@ export default class Sea extends Entity {
     this.jetColorTexture = this.getSketch().getLoaders().textureLoader.load('./textures/airplane/diffuse.jpg');
     this.jetNormalTexture = this.getSketch().getLoaders().textureLoader.load('./textures/airplane/normal.png');
 
-    this.getSketch().getLoaders().jetObjLoader.load(
+    this.getSketch().getLoaders().objLoader.load(
       './models/airplane/airplane.obj',
       (airplane) => {
 
