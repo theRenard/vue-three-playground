@@ -30,6 +30,11 @@ const routes: Array<RouteConfig> = [
     name: 'Earth',
     component: () => import(/* webpackChunkName: "Earth" */ '../views/earth/Earth.vue'),
   },
+  {
+    path: '/planet',
+    name: 'Planet',
+    component: () => import(/* webpackChunkName: "Planet" */ '../views/planet/Planet.vue'),
+  },
 ];
 
 const router = new VueRouter({
