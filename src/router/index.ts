@@ -25,6 +25,11 @@ const routes: Array<RouteConfig> = [
     name: 'Street',
     component: () => import(/* webpackChunkName: "Airplane" */ '../views/street/Street.vue'),
   },
+  {
+    path: '/earth',
+    name: 'Earth',
+    component: () => import(/* webpackChunkName: "Earth" */ '../views/earth/Earth.vue'),
+  },
 ];
 
 const router = new VueRouter({

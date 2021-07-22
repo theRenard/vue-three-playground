@@ -12,6 +12,7 @@
         <ul class="sub-menu">
           <li><router-link to="/airplane">Airplane</router-link></li>
           <li><router-link to="/street">Street</router-link></li>
+          <li><router-link to="/earth">Earth</router-link></li>
           <!-- <li><router-link to="/materials">Materials</router-link></li> -->
         </ul>
       </li>
