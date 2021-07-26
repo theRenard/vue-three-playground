@@ -3,6 +3,7 @@ import { Texture } from 'three';
 import { gsap } from 'gsap';
 
 export default class Sea extends Entity {
+  name = 'Sea';
   airplane: any;
   airplaneAnimation: gsap.core.Tween;
 

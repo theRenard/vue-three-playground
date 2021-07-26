@@ -4,6 +4,7 @@ import {
 } from 'three';
 
 export default class Clouds extends Entity {
+  name: 'Clouds';
   cloudsGeometry: SphereBufferGeometry;
   cloudsMaterial: MeshPhongMaterial;
   cloudsMesh: Mesh;

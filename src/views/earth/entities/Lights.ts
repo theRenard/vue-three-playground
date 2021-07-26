@@ -4,6 +4,7 @@ import {
 } from 'three';
 
 export default class Clouds extends Entity {
+  name = 'Lights';
   ambientlight: AmbientLight;
   pointLight: PointLight;
   Helper: PointLightHelper;

@@ -4,6 +4,7 @@ import {
 } from 'three';
 
 export default class Earth extends Entity {
+  name = 'Earth';
   galaxyGeometry: SphereBufferGeometry;
   galaxyMaterial: MeshBasicMaterial;
   galaxyMesh: Mesh;

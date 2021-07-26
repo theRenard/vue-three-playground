@@ -7,6 +7,7 @@ import {
 } from 'three';
 
 export default class Airplane extends Entity {
+  name = 'Sea';
   sea: Mesh;
   waterGeometry: PlaneGeometry;
   waterMaterial: ShaderMaterial;

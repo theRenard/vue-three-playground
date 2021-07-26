@@ -40,7 +40,7 @@ export default class Sketch {
   private cameraType!: 'perspective' | 'orthographic';
   private debug = false;
   public isReadyToRender = false;
-  private entities: Entity[] = [];
+  private entities: Map<string, any> = new Map();
   public init(canvasEl: HTMLCanvasElement, cameraType: 'perspective' | 'orthographic' = 'perspective'): void {
     this.canvas = canvasEl;
     this.cameraType = cameraType;
@@ -55,10 +55,10 @@ export default class Sketch {
     this.tick();
   }
 
-  public setEntity(entity: Entity): void {
+  public setEntity<T extends Entity>(entity: T): void {
     entity.setSketch(this);
     entity.init();
-    this.entities.push(entity);
+    this.entities.set(entity.name, entity);
   }
 
   public getLoaders(): { manager: LoadingManager, objLoader: OBJLoader, gltfLoader: GLTFLoader, textureLoader: TextureLoader } {
@@ -70,7 +70,7 @@ export default class Sketch {
     };
   }
 
-  public getEntities(): Entity[] {
+  public getEntities<T extends Entity>(): Map<string, T> {
     return this.entities;
   }
 
@@ -123,6 +123,10 @@ export default class Sketch {
     return this.controls;
   }
 
+  public getEntityByName<T extends Entity>(name: string): T | null {
+    return this.entities.get(name) || null;
+  }
+
   private resize(): void {
     // Update sizes
     Config.width = window.innerWidth;
@@ -154,16 +158,17 @@ export default class Sketch {
 
   // eslint-disable-next-line class-methods-use-this
   private update(elapsedTime: number): void {
-    for (let i = 0; i < this.entities.length; i += 1) {
-      this.entities[i].update(elapsedTime);
+    // eslint-disable-next-line no-restricted-syntax
+    for (const entity of this.entities.values()) {
+      entity.update(elapsedTime);
     }
   }
 
   private destroyEntities(): void {
-    for (let i = 0; i < this.entities.length; i += 1) {
-      this.entities[i].destroy();
+    // eslint-disable-next-line no-restricted-syntax
+    for (const entity of this.entities.values()) {
+      entity.destroy();
     }
-    this.entities = [];
   }
 
   private tick(): void {

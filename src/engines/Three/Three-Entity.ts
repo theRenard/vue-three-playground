@@ -2,6 +2,7 @@
 import Sketch from './Three';
 
 export default abstract class Entity {
+abstract name: string;
 /**
  * This function is called by the sketch at every requestAnimationFrame.
  *

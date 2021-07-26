@@ -12,6 +12,7 @@ import {
 
 const firefliesCount = 30;
 export default class Fireflies extends Entity {
+  name = 'Fireflies';
   firefliesGeometry: BufferGeometry;
   firefliesMaterial: ShaderMaterial;
   init(): void {

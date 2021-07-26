@@ -3,6 +3,7 @@ import { AmbientLight, DirectionalLight, PointLight } from 'three';
 import Entity from '@/engines/Three/Three-Entity';
 
 export default class Airplane extends Entity {
+  name = 'Lights';
   ambientLight: AmbientLight;
   moonLight: DirectionalLight;
   doorLight: PointLight;

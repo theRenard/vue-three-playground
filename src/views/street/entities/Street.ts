@@ -4,6 +4,7 @@ import {
 } from 'three';
 
 export default class Street extends Entity {
+  name = 'Street';
   street: Group;
   streetTexture: Texture;
   roadTexture: Texture;
