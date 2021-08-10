@@ -106,7 +106,7 @@ export default class Sketch {
     if (this.cameraType === 'orthographic') {
       this.camera = new OrthographicCamera(-3 * Config.aspRatio, 3 * Config.aspRatio, 3, -3, 0.1, 100);
     } else {
-      this.camera = new PerspectiveCamera(75, Config.width / Config.height, 0.1, 100);
+      this.camera = new PerspectiveCamera(75, Config.width / Config.height, 0.1, 2000);
     }
   }
   private setScene(): void {

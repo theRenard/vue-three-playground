@@ -30,7 +30,6 @@ export default class Earth extends Entity {
     this.getSketch().getScene().add(this.galaxyMesh);
   }
 
-  // eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-empty-function
   update(): void {
     this.galaxyMesh.rotation.y -= 0.002;
   }

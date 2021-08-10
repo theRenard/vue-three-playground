@@ -35,6 +35,11 @@ const routes: Array<RouteConfig> = [
     name: 'Planet',
     component: () => import(/* webpackChunkName: "Planet" */ '../views/planet/Planet.vue'),
   },
+  {
+    path: '/procedural-terrain',
+    name: 'ProceduralTerrain',
+    component: () => import(/* webpackChunkName: "ProceduralTerrain" */ '../views/procedural_terrain/Procedural.vue'),
+  },
 ];
 
 const router = new VueRouter({
