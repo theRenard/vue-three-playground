@@ -1,6 +1,6 @@
 /* eslint-disable object-curly-newline */
-import math from '@/Utils/math';
 import { BufferAttribute, Color, FrontSide, Group, Mesh, MeshStandardMaterial, PlaneGeometry, Vector3 } from 'three';
+import math from '@/Utils/math';
 import HeightGenerator from './HeightGenerator';
 
 type TerrainChunkParameters = {
@@ -35,7 +35,7 @@ export default class TerrainChunk {
       new PlaneGeometry(size.x, size.z, 128, 128),
       new MeshStandardMaterial({
         wireframe: false,
-        color: 0xFFFFFF,
+        color: 0x0000ff,
         side: FrontSide,
         // vertexColors: VertexColors,
       }),
@@ -85,41 +85,41 @@ export default class TerrainChunk {
 
     // DEMO
     if (this.heightGenerators.length > 1 && offset.x === 0 && offset.y === 0) {
-      const gen = this.heightGenerators[0];
-      const maxHeight = 16.0;
-      const GREEN = new Color(0x46b00c);
+    //   const gen = this.heightGenerators[0];
+    //   const maxHeight = 16.0;
+    //   const GREEN = new Color(0x46b00c);
 
-      const faces = (this.plane.geometry as any).faces as [number, number, number, number];
-      // eslint-disable-next-line no-restricted-syntax
-      for (const f of faces) {
-        // const vs = [
-        // this.plane.geometry.vertices[f.a],
-        // this.plane.geometry.vertices[f.b],
-        // this.plane.geometry.vertices[f.c],
-        // ];
+      //   const faces = this.plane.geometry.faces;
+      //   // eslint-disable-next-line no-restricted-syntax
+      //   for (const f of faces) {
+      //     const vs = [
+      //       this.plane.geometry.vertices[f.a],
+      //       this.plane.geometry.vertices[f.b],
+      //       this.plane.geometry.vertices[f.c],
+      //     ];
 
-        const vertexColours = [];
-        // eslint-disable-next-line no-restricted-syntax
-        // for (const v of vs) {
-        //   const [h] = gen.Get(v.x + offset.x, v.y + offset.y);
-        //   const a = math.sat(h / maxHeight);
-        //   const vc = new Color(0xFFFFFF);
-        //   vc.lerp(GREEN, a);
+      //     const vertexColours = [];
+      //     // eslint-disable-next-line no-restricted-syntax
+      //     for (const v of vs) {
+      //       const [h] = gen.Get(v.x + offset.x, v.y + offset.y);
+      //       const a = math.sat(h / maxHeight);
+      //       const vc = new Color(0xFFFFFF);
+      //       vc.lerp(GREEN, a);
 
-        //   vertexColours.push(vc);
-        // }
-        // f.vertexColors = vertexColours;
-      }
-      // this.plane.geometry.elementsNeedUpdate = true;
-    } else {
-      // eslint-disable-next-line no-restricted-syntax
-      // for (const f of this.plane.geometry.faces) {
-      //   f.vertexColors = [
-      //     new Color(0xFFFFFF),
-      //     new Color(0xFFFFFF),
-      //     new Color(0xFFFFFF),
-      //   ];
-      // }
+      //       vertexColours.push(vc);
+      //     }
+      //     f.vertexColors = vertexColours;
+      //   }
+      //   this.plane.geometry.elementsNeedUpdate = true;
+      // } else {
+      //   // eslint-disable-next-line no-restricted-syntax
+      //   for (const f of this.plane.geometry.faces) {
+      //     f.vertexColors = [
+      //       new Color(0xFFFFFF),
+      //       new Color(0xFFFFFF),
+      //       new Color(0xFFFFFF),
+      //     ];
+      //   }
 
     }
     // this.plane.geometry.verticesNeedUpdate = true;

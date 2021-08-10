@@ -1,3 +1,4 @@
+import { Color, PerspectiveCamera } from 'three';
 import Sketch from '@/engines/Three/Three';
 import TerrainChunkManager from './Terrain/TerrainChunkManager';
 import Lights from './Entities/Lights';
@@ -16,9 +17,17 @@ export default class EarthSketch extends Sketch {
     this.setEntity(sky);
     this.setEntity(lights);
 
-    this.getCamera().position.x = 1;
-    this.getCamera().position.y = 1;
-    this.getCamera().position.z = 1;
+    this.getScene().background = new Color(0xaaaaaa);
+    const camera = this.getCamera() as PerspectiveCamera;
+    camera.fov = 60;
+    camera.aspect = canvasEl.width / canvasEl.height;
+    camera.near = 0.1;
+    camera.far = 10000;
+    camera.position.set(75, 20, 0);
+    camera.updateProjectionMatrix();
+    this.getControls().target.set(0, 50, 0);
+    this.getControls().object.position.set(475, 345, 900);
+    this.getControls().update();
 
     this.isReadyToRender = true;
   }
